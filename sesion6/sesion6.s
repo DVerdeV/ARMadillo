@@ -20,11 +20,13 @@ start:
 	ldr r3, [r3]
 	ldr r4, [r4]
 	ldr r0, =media
+	mov r5, #0
 sum:
-    add r0, r1, r2
-    add r0, r0, r3
-    add r0, r0, r4
+    add r5, r1, r2
+    add r5, r5, r3
+    add r5, r5, r4
 division:
-	lsr r0, r0, #2
+	lsr r5, r5, #2
+	str r5, [r0]
 exit:
 	bx lr
