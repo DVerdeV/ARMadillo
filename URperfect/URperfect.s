@@ -32,10 +32,11 @@ max:
 	mov r10, r0
 endcycle:
 	b endwhile
-
 endwhile:
 	ldr r2, =res
 	str r8,[r2]
+	str r9,[r2, #4]
+	str r10,[r2, #8]
 	bx lr
 
 
