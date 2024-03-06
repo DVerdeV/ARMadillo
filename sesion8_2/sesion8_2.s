@@ -1,8 +1,8 @@
 .data
-tam: .word 9
+tam: .word 10
 vector: .word -35, 2, 3, 45, -3, -90, -4, -67, 32, 44
 pos: .word 0
-val: .word 44
+val: .word -3
 
 .text
 start:
@@ -29,5 +29,4 @@ not_found:
 	bx lr
 found:
     mov r4, r6
-    add r4, r4, #1
     bx lr
