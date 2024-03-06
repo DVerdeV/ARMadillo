@@ -1,12 +1,8 @@
 .data
-@tam: number of elements in the vector
-tam: .word 8
-@pos: position of an element in the vector
+tam: .word 9
+vector: .word -35, 2, 3, 45, -3, -90, -4, -67, 32, 44
 pos: .word 0
-@vector: vector of integers
-vector: .word 2, -3, 6, 5, -4, 8, 1, 0
-@val: value to be found in the vector
-val: .word -4
+val: .word 44
 
 .text
 start:
@@ -19,7 +15,7 @@ start:
     ldr r4, [r4]
     mov r6, #0
 loop:
-    cmp r5, r1
+    cmp r6, r1
     beq not_found
     @ load the value to another register another register and compare
     ldr r5, [r2]
