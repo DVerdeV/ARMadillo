@@ -42,7 +42,6 @@ URperfect:
 	cmp r0, #0
 	blt notPerfect
 	mov r1, #0
-
 findSqrt:
 	add r1, r1, #1
 	mul r2, r1, r1
@@ -51,11 +50,9 @@ findSqrt:
 	beq isPerfect
 	mov r0, #0
 	mov pc, lr
-
 notPerfect:
 	mov r0, #0
 	mov pc, lr
-
 isPerfect:
 	mov r0, #1
 	mov pc, lr
