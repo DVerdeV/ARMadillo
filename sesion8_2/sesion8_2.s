@@ -26,7 +26,9 @@ loop:
     b loop
 not_found:
     mov r4, #-1
+    str r4, [r4]
 	bx lr
 found:
     mov r4, r6
+    str r4, [r4]
     bx lr
