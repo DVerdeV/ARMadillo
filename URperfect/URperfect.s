@@ -19,9 +19,9 @@ while:
 	cmp r5, #0
 	beq endwhile
 	bl URperfect
-	subs r5, r5, #1
+	sub r5, r5, #1
 	cmp r0, #0
-	beq notperfect
+	beq endcycle
 perfect:
 	add r8, r8, r0
 	add r9, r9, #1
@@ -34,25 +34,42 @@ endcycle:
 	b endwhile
 endwhile:
 	ldr r2, =res
-	str r8,[r2]
-	str r9,[r2, #4]
-	str r10,[r2, #8]
+	str r8, [r2]
+	str r9, [r2, #4]
+	str r10, [r2, #8]
 	bx lr
+
 URperfect:
+	push {r4-r6, lr}
 	cmp r0, #0
 	blt notPerfect
 	mov r1, #0
 findSqrt:
 	add r1, r1, #1
-	mul r2, r1, r1
-	cmp r2, r0
+	bl Multiply
+	cmp r1, r0
 	blt findSqrt
 	beq isPerfect
 	mov r0, #0
-	mov pc, lr
 notPerfect:
 	mov r0, #0
-	mov pc, lr
+	b return
 isPerfect:
 	mov r0, #1
-	mov pc, lr
+return:
+	pop {r4-r6, lr}
+	bx lr
+
+
+Multiply:
+	push {r6, lr}
+	mov r6, r1
+whilemultiplication:
+	cmp r0, #0
+	beq endwhilemultiplication
+	add r0, r6, r6
+	sub r6, r6, #1
+	b whilemultiplication
+endwhilemultiplication:
+	pop {r6, lr}
+	bx lr
