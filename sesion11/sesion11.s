@@ -1,6 +1,6 @@
 .data
-leds1: .word 0x201
-leds2: .word 0x030
+leds1: .word 0x2AA
+leds2: .word 0x155
 
 .text
 main:
@@ -10,7 +10,7 @@ main:
   bl setLEDsStatus
 
 loop:
-  mov r0, #0
+  mov r0, #3
   bl isButtonPressed
   cmp r0, #1
   bne loop
