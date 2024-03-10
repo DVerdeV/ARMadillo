@@ -1,6 +1,6 @@
 .data
-leds1: .word 0x2AA
-leds2: .word 0x155
+leds1: .word 0x155 
+leds2: .word 0x2AA 
 
 .text
 main:
