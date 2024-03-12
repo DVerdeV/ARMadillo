@@ -28,6 +28,7 @@
             @ r1 number of elements
             @ r0 return the number of even elements
 
+            push {r5}
             mov r5, #0
  loop:
             ldr r2, [r0], #4
@@ -49,4 +50,5 @@
             b loop
 return:
             mov r0, r5
+            pop {r5}
             bx lr
