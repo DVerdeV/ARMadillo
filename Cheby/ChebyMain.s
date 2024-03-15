@@ -31,8 +31,8 @@ loop:
 	cmp r2, r3
 	blt update
 iterate:
-	sub r0, r0, #1
-	cmp r0, #0
+	sub r1, r1, #1
+	cmp r1, #0
 	bne loop
 	bx lr
 update:
