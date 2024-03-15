@@ -1,52 +1,68 @@
-.data
-leds: .word 1, 2, 4, 8, 16, 32, 64, 128, 256, 512
-numel: .word 10
+; .data
+;  leds: .word 1, 2, 4, 8, 16, 32, 64, 128, 256, 512
+;  numel: .word 10
+;  .text
+;  main:
+;    push {lr}
+;    ldr r0, =leds
+;    ldr r1, =numel
+;    ldr r1, [r1]
 
-.text
-main:
-  push {lr}
-  ldr r0, =leds
-  ldr r1, =numel
-  ldr r1, [r1]
+;    bl ledseq
 
-  bl ledseq
-
-  pop {lr}
-  bx lr
+;    pop {lr}
+;    bx lr
 
 
 
 ledseq:
-	push {lr}
-	mov r2, r0
+	push {r4-r6, lr}
+	mov r6, #1
+	mov r2, r0 //start pos
+	mov r4, #0 //index
 loop:
-	cmp r2, r1
+	cmp r4, r1
 	beq restart
 	ldr r3, [r0], #4
 	
 	push {r0}
-	ldr r0, r3
+	mov r0, r3
 	bl setLEDsStatus
 	pop {r0}
-
+buttonLoop:
+	push {r0}
 	bl buttons
-	cmp r0, #1
-	beq loop
-	cmp r0, #3
+	mov r5, r0
+	pop {r0}
+	cmp r5, #1
+	beq push
+	cmp r5, r6
+	beq release
+	cmp r5, #3
 	beq end
-
+	b buttonLoop
+push:
+	mov r6, #0
+	b buttonLoop
+release:
+	mov r6, #1
+	add r4, r4, #1
 	b loop
 restart:
+	mov r4, #0
 	mov r0, r2
 	b loop
+next:
+	add r4, #1
+	b loop
 end:
-	pop {lr}
+	pop {r4-r6, lr}
 	bx lr
 
 
 
 buttons:
-	push {r0, lr}
+	push {lr}
 	
 	mov r0, #3
 	bl isButtonPressed
@@ -57,15 +73,13 @@ buttons:
 	bl isButtonPressed
 	cmp r0, #1
 	beq continueProgram
+	mov r0, #0
 	b return
 endProgram:
-	pop {r0, lr}
 	mov r0, #3
-	bx lr
+	b return
 continueProgram:
-	pop {r0, lr}
 	mov r0, #1
-	bx lr
 return:
-	pop {r0, lr}
+	pop {lr}
 	bx lr

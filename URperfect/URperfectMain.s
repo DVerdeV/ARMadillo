@@ -44,3 +44,26 @@ endwhile:
 	str r9, [r2, #4]
 	str r7, [r2, #8]
 	bx lr
+
+
+URperfect:
+	push {r1-r3, lr}
+	cmp r0, #0
+	beq is
+	blt isnt
+	mov r1, #1
+	loop:
+		subs r0, r1
+		beq is
+		blt isnt
+		add r1, #2
+		b loop
+	is:
+		mov r0, #1
+		b out
+	isnt:
+		mov r0, #0
+		b out
+	out:
+		pop {r1-r3, lr}
+		bx lr
