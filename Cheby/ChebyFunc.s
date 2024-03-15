@@ -1,8 +1,6 @@
 Cheby:
     push {r4-r5, lr}
-    @ Subtract xi from xj
     sub r0, r0, r2
-    @ Subtract yi from yj
     sub r1, r1, r3
     push {r1-r3, lr}
     bl abs 

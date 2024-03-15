@@ -6,9 +6,9 @@
 	D: .word 8
 	vecX: .word 2,7,5,4
 	vecY: .word 3,2,5,3
-
 .text
 main: 
+	push {r5-r8, lr}
 	ldr r0, =nump
 	ldr r1, [r0]
 	ldr r4, =a
@@ -19,14 +19,16 @@ main:
 	ldr r7, =vecY
 	ldr r8, =res
 loop:
-	push {r0}
+	push {r0-r1}
 	mov r0, r4
 	mov r1, r5
 	ldr r2, [r6], #4
 	ldr r3, [r7], #4
+	push {lr}
 	bl Cheby
+	pop {lr}
 	mov r3, r0
-	pop {r0}
+	pop {r0-r1}
 	ldr r2, [r8]
 	cmp r2, r3
 	blt update
@@ -34,15 +36,8 @@ iterate:
 	sub r1, r1, #1
 	cmp r1, #0
 	bne loop
+	push {r5-r8, lr}
 	bx lr
 update:
 	str r3, [r8]
 	b iterate
-
-abs: 
-	mov r1, #0
-	mov r2, r0
-	cmp r2, r1
-	mov r3, #0
-	sublt r0, r1, r0
-	mov pc, lr
