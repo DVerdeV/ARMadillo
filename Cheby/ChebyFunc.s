@@ -1,35 +1,7 @@
-@ CHEBY FUNCTION
-
-
-
-.data
-res: .word 0
-
-.text
-main: mov r0, #0
-    mov r1, #1
-    mov r2, #2
-    mov r3, #3
-    push {lr}
-    bl Cheby
-    pop {lr}
-    ldr r2, =res
-    str r0,[r2]
-    bx lr
-abs: 
-    mov r1, #0
-    mov r2, r0
-    cmp r2, r1
-    mov r3, #0
-    sublt r0, r1, r0
-    mov pc, lr
-
-    @ 4 args: xi (r0), yi (r1), xj (r2), yj (r3)
-    @ 1 return: distance (r0)
 Cheby:
     
     
-    push {lr}
+    push {r4-r5, lr}
     @ Subtract xi from xj
     sub r0, r0, r2
     @ Subtract yi from yj
@@ -67,7 +39,7 @@ less:
     b end
 
 end:
-    pop {lr}
-    
+    sub r1, r1, r3
+    pop {r4-r5, pc}
     bx lr
 
