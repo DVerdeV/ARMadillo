@@ -1,6 +1,4 @@
 Cheby:
-    
-    
     push {r4-r5, lr}
     @ Subtract xi from xj
     sub r0, r0, r2
